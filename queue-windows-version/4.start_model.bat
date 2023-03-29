@@ -1,0 +1,1 @@
+cd "model" && conda activate tool && python starter.py
