@@ -53,6 +53,10 @@ const App = () => {
   const [errorMessage, updateErrorMessage] = useState("error");
   const [timetaken, updateTimeTaken] = useState("");
 
+  const [zoom, updateZoom] = useState("0:(1.01)");
+  const [xtrans, updateXtrans] = useState("0:(0)");
+  const [ytrans, updateYtrans] = useState("0:(0)");
+
   
 function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
@@ -130,7 +134,7 @@ function millisToMinutesAndSeconds(millis) {
       };
       updateTimeTaken("");
       let start = Date.now();
-      const result = await axios.get(`http://localhost/generatevideo?prompt=${prompt}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}`,config);
+      const result = await axios.get(`http://localhost/generatevideo?prompt=${prompt}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}`,config);
       updateVideo('http://localhost/static/'+result.data);
       let ttimeTaken = Date.now() - start;
       updateTimeTaken(millisToMinutesAndSeconds(ttimeTaken))
@@ -196,6 +200,16 @@ function millisToMinutesAndSeconds(millis) {
           <NumberInput value={cadance} precision={0} step={1} min={1} max={8} onChange={(valueString) => updateCadance(parse(valueString))}><NumberInputField /><NumberInputStepper><NumberIncrementStepper /><NumberDecrementStepper /></NumberInputStepper></NumberInput>
           <NumberInput value={fps} precision={0} step={1} min={1} onChange={(valueString) => updateFPS(parse(valueString))}><NumberInputField /><NumberInputStepper><NumberIncrementStepper /><NumberDecrementStepper /></NumberInputStepper></NumberInput>
     
+        </SimpleGrid>
+
+
+        <SimpleGrid marginBottom={"10px"} columns={3} spacing={0}>
+          <Text>Zoom:</Text>
+          <Text>X Translation:</Text>
+          <Text>Y Translation:</Text>
+          <Input  placeholder='' value={zoom} onChange={(e) => updateZoom(e.target.value)}></Input>
+          <Input  placeholder='' value={xtrans} onChange={(e) => updateXtrans(e.target.value)}></Input>
+          <Input  placeholder='' value={ytrans} onChange={(e) => updateYtrans(e.target.value)}></Input>
         </SimpleGrid>
 
         <Button onClick={(e) => generate(prompt)} marginBottom={"50px"} >Generate</Button>
