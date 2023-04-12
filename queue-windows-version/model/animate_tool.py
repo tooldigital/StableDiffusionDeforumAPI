@@ -32,10 +32,12 @@ def Root():
     custom_checkpoint_path = "" #@param {type:"string"}
     return locals()
 
+print("START DEFORUM")
 root = Root()
 root = SimpleNamespace(**root)
 root.models_path, root.output_path = get_model_output_paths(root)
 root.model, root.device = load_model(root, load_on_run_all=True, check_sha256=False, map_location=root.map_location)
+print("DEFORUM INIT DONE")
 
 def DeforumAnimArgs():
 
@@ -344,8 +346,6 @@ def render(prompt: str,timings: str,steps: int,seed: str,guidance: float,schedul
     args.seed_behavior = seed
     args.scale = guidance
     args.sampler = scheduler
-
-
 
     if args.sampler == 'plms' and (args.use_init or anim_args.animation_mode != 'None'):
         print(f"Init images aren't supported with PLMS yet, switching to KLMS")
