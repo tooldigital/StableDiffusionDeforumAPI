@@ -40,7 +40,7 @@ const App = () => {
 
   const [video, updateVideo] = useState('');
   const [timings, updateTimings] = useState('0,60,120,180,240');
-  const [prompt, updatePrompt] = useState('"a man walking on a mountain. trending on artstation.","a cabin on a mountain , trending on artstation.","a man in front of a cabin, trending on artstation.","a man standing in a pool,  trending on artstation."');
+  const [prompt, updatePrompt] = useState('"a man walking on a mountain, trending on artstation.",\n"a cabin on a mountain , trending on artstation.",\n"a man in front of a cabin, trending on artstation.",\n"a man standing in a pool, trending on artstation."');
   const [selected_model, updateSelectedModel] = useState("Protogen_V2.2.ckpt");
   const [selected_scheduler, updateSelectedScheduler] = useState("dpmpp_2s_a");
   const [guidance, updateGuidance] = useState(7.5);
@@ -58,7 +58,7 @@ const App = () => {
   const [ytrans, updateYtrans] = useState("0:(0)");
 
   const [initimage, updateInitimage] = useState("https://i.postimg.cc/8PX8B9HS/Screenshot-2023-04-12-133338.png");
-  const [initimageStrength, updateInitImageStrength] = useState(0.25);
+  const [initimageStrength, updateInitImageStrength] = useState(0.1);
   const [useInitImage, updateUseInitImage] = useState(false);
 
   function millisToMinutesAndSeconds(millis) {
@@ -159,7 +159,7 @@ const App = () => {
         </UnorderedList>
 
         <Text>Prompts</Text>
-        <Textarea placeholder='' value={prompt} onChange={(e) => updatePrompt(e.target.value)}></Textarea>
+        <Textarea height='130' placeholder='' value={prompt} onChange={(e) => updatePrompt(e.target.value)}></Textarea>
 
         <Text>Timings</Text>
         <Input placeholder='' value={timings} onChange={(e) => updateTimings(e.target.value)}></Input>
@@ -171,6 +171,7 @@ const App = () => {
             <option>ultimate-country-photo-v3.ckpt</option>
             <option>ultimate-country-texture-v2.ckpt</option>
             <option>ultimate-pop-v1.ckpt</option>
+            <option>ultimate-pop-v2.ckpt</option>
           </Select>
         </FormControl>
 
