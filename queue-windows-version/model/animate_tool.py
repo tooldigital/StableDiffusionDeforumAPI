@@ -284,7 +284,7 @@ elif anim_args.animation_mode == 'Video Input':
 gc.collect()
 torch.cuda.empty_cache()
 
-def render(prompt: str,timings: str,steps: int,seed: str,guidance: float,scheduler: str,selected_model: str,cadance: int,_fps: int, _zoom: str,xtrans: str,ytrans: str):
+def render(prompt: str,timings: str,steps: int,seed: str,guidance: float,scheduler: str,selected_model: str,cadance: int,_fps: int, _zoom: str,xtrans: str,ytrans: str,useinitimage: bool,initimageurl: str,initimagestrength: float):
     gc.collect()
     torch.cuda.empty_cache()
     
@@ -346,6 +346,12 @@ def render(prompt: str,timings: str,steps: int,seed: str,guidance: float,schedul
     args.seed_behavior = seed
     args.scale = guidance
     args.sampler = scheduler
+
+    if useinitimage:
+        args.use_init = True
+        args.strength = initimagestrength
+        args.init_image = initimageurl
+
 
     if args.sampler == 'plms' and (args.use_init or anim_args.animation_mode != 'None'):
         print(f"Init images aren't supported with PLMS yet, switching to KLMS")

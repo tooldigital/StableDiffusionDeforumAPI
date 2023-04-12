@@ -58,7 +58,8 @@ const App = () => {
   const [ytrans, updateYtrans] = useState("0:(0)");
 
   const [initimage, updateInitimage] = useState("https://i.postimg.cc/8PX8B9HS/Screenshot-2023-04-12-133338.png");
-
+  const [initimageStrength, updateInitImageStrength] = useState(0.25);
+  const [useInitImage, updateUseInitImage] = useState(false);
 
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
@@ -136,7 +137,7 @@ const App = () => {
       };
       updateTimeTaken("");
       let start = Date.now();
-      const result = await axios.get(`http://localhost/generatevideo?prompt=${prompt}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}`, config);
+      const result = await axios.get(`http://localhost/generatevideo?prompt=${prompt}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`, config);
       updateVideo('http://localhost/static/' + result.data);
       let ttimeTaken = Date.now() - start;
       updateTimeTaken(millisToMinutesAndSeconds(ttimeTaken))
@@ -205,9 +206,7 @@ const App = () => {
           <NumberInput value={fps} precision={0} step={1} min={1} onChange={(valueString) => updateFPS(parse(valueString))}><NumberInputField /><NumberInputStepper><NumberIncrementStepper /><NumberDecrementStepper /></NumberInputStepper></NumberInput>
 
         </SimpleGrid>
-
-
-        <SimpleGrid marginBottom={"10px"} columns={3} spacing={0}>
+        <SimpleGrid marginBottom={"30px"} columns={3} spacing={0}>
           <Text>Zoom:</Text>
           <Text>X Translation:</Text>
           <Text>Y Translation:</Text>
@@ -216,8 +215,11 @@ const App = () => {
           <Input placeholder='' value={ytrans} onChange={(e) => updateYtrans(e.target.value)}></Input>
         </SimpleGrid>
 
+        <Checkbox  isChecked={useInitImage} onChange={(e) => updateUseInitImage(e.target.checked)}>Use init image</Checkbox>
         <Text>Init image url</Text>
-        <Input marginBottom={"10px"} placeholder='' value={initimage} onChange={(e) => updateTimings(e.target.value)}></Input>
+        <Input placeholder='' value={initimage} onChange={(e) => updateInitimage(e.target.value)}></Input>
+        <Text>Init image strength</Text>
+        <NumberInput  marginBottom={"10px"}  value={initimageStrength} precision={2} step={0.01} min={0} max={1} onChange={(valueString) => updateInitImageStrength(parse(valueString))} ><NumberInputField /><NumberInputStepper><NumberIncrementStepper /><NumberDecrementStepper /></NumberInputStepper></NumberInput>
 
         <Button onClick={(e) => generate(prompt)} marginBottom={"50px"} >Generate</Button>
 

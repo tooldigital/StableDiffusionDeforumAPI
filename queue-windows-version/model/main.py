@@ -36,7 +36,7 @@ def generateSD():
         for q in queue:
             # Deserialize the object and obtain the input image
             q = json.loads(q.decode("utf-8"))
-            obj = {"prompt": q['prompt'],"timings": q['timings'],"steps": q['steps'],"seed":q['seed'],"guidance":q['guidance'],"scheduler":q['scheduler'],"selected_model":q['selected_model'],"cadance":q['cadance'],"fps":q['fps'],"zoom":q['zoom'],"xtrans":q['xtrans'],"ytrans":q['ytrans']}
+            obj = {"prompt": q['prompt'],"timings": q['timings'],"steps": q['steps'],"seed":q['seed'],"guidance":q['guidance'],"scheduler":q['scheduler'],"selected_model":q['selected_model'],"cadance":q['cadance'],"fps":q['fps'],"zoom":q['zoom'],"xtrans":q['xtrans'],"ytrans":q['ytrans'],"useinitimage":q['useinitimage'],"initimageurl":q['initimageurl'],"initimagestrength":q['initimagestrength']}
             sd_objects.append(obj)
             # Update the list of image IDs
             imageIDs.append(q["id"])
@@ -46,7 +46,7 @@ def generateSD():
             # Classify the batch
             # Loop over the image IDs and their corresponding set of results from our model
             for id in imageIDs:
-                mp4path = animate_tool.render(sd_objects[0]['prompt'],sd_objects[0]['timings'],sd_objects[0]['steps'],sd_objects[0]['seed'],sd_objects[0]['guidance'],sd_objects[0]['scheduler'],sd_objects[0]['selected_model'],sd_objects[0]['cadance'],sd_objects[0]['fps'],sd_objects[0]['zoom'],sd_objects[0]['xtrans'],sd_objects[0]['ytrans'])
+                mp4path = animate_tool.render(sd_objects[0]['prompt'],sd_objects[0]['timings'],sd_objects[0]['steps'],sd_objects[0]['seed'],sd_objects[0]['guidance'],sd_objects[0]['scheduler'],sd_objects[0]['selected_model'],sd_objects[0]['cadance'],sd_objects[0]['fps'],sd_objects[0]['zoom'],sd_objects[0]['xtrans'],sd_objects[0]['ytrans'],sd_objects[0]['useinitimage'],sd_objects[0]['initimageurl'],sd_objects[0]['initimagestrength'])
                 db.set(id, mp4path)
         # Sleep for a small amount
         time.sleep(0.001)

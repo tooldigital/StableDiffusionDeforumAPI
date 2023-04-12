@@ -30,10 +30,10 @@ def index():
     return Response("Hello World from Tool Deforum Animation!")
 
 @app.get("/generatevideo")
-def generate(prompt: str,timings: str,steps: int,seed: str,guidance: float,scheduler: str,selected_model: str,cadance: int,fps: int,zoom: str, xtrans: str,ytrans: str):
+def generate(prompt: str,timings: str,steps: int,seed: str,guidance: float,scheduler: str,selected_model: str,cadance: int,fps: int,zoom: str, xtrans: str,ytrans: str,useinitimage: bool,initimageurl: str,initimagestrength: float):
     k = str(uuid.uuid4())
     print("started request with id: "+k)
-    d = {"id": k, "prompt": prompt,"timings":timings,"steps":steps,"seed":seed,"guidance":guidance,"scheduler":scheduler,"selected_model":selected_model,"cadance":cadance,"fps":fps,"zoom":zoom,"xtrans":xtrans,"ytrans":ytrans}
+    d = {"id": k, "prompt": prompt,"timings":timings,"steps":steps,"seed":seed,"guidance":guidance,"scheduler":scheduler,"selected_model":selected_model,"cadance":cadance,"fps":fps,"zoom":zoom,"xtrans":xtrans,"ytrans":ytrans,"useinitimage":useinitimage,"initimageurl":initimageurl,"initimagestrength":initimagestrength}
     db.rpush("sd_queue", json.dumps(d))
     num_tries = 0
     data = None
