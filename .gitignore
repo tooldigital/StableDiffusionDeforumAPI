@@ -54,3 +54,6 @@ queue-windows-version/model/models/Protogen_V2.2.ckpt
 queue-windows-version/model/models/ultimate-country-texture-v2.ckpt
 queue-windows-version/model/models/ultimate-pop-v1.ckpt
 queue-windows-version/api/__pycache__/main.cpython-310.pyc
+queue-windows-version/model/models/asdpopstyle.safetensors
+queue-windows-version/model/models/ultimate-pop-v4.ckpt
+queue-windows-version/dump.rdb
