@@ -142,13 +142,13 @@ const App = () => {
       //https://9a79-108-60-56-66.ngrok-free.app
 
       //GPU CLOUD
-      //https://714c-54-85-202-123.ngrok-free.app
+      //https://5c39-54-85-202-123.ngrok-free.app/
 
       let pr = encodeURIComponent(prompt);
-      const strr = `https://714c-54-85-202-123.ngrok-free.app/generatevideo?prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
+      const strr = `https://5c39-54-85-202-123.ngrok-free.app/generatevideo?prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
       //let newstr = decodeURIComponent(strr);
       const result = await axios.get(strr, config);
-      updateVideo('https://714c-54-85-202-123.ngrok-free.app/static/' + result.data);
+      updateVideo('https://5c39-54-85-202-123.ngrok-free.app/static/' + result.data);
       let ttimeTaken = Date.now() - start;
       updateTimeTaken(millisToMinutesAndSeconds(ttimeTaken))
       updateLoading(false);
