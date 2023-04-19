@@ -139,16 +139,16 @@ const App = () => {
       let start = Date.now();
 
       //TOOL machine
-      //https://9a79-108-60-56-66.ngrok-free.app
+      //https://0b14-108-60-56-66.ngrok-free.app
 
       //GPU CLOUD
-      //https://5c39-54-85-202-123.ngrok-free.app/
+      //http://54.224.132.146
 
       let pr = encodeURIComponent(prompt);
-      const strr = `https://5c39-54-85-202-123.ngrok-free.app/generatevideo?prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
+      const strr = `http://54.224.132.146/generatevideo?prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
       //let newstr = decodeURIComponent(strr);
       const result = await axios.get(strr, config);
-      updateVideo('https://5c39-54-85-202-123.ngrok-free.app/static/' + result.data);
+      updateVideo('http://54.224.132.146/static/' + result.data);
       let ttimeTaken = Date.now() - start;
       updateTimeTaken(millisToMinutesAndSeconds(ttimeTaken))
       updateLoading(false);
@@ -178,12 +178,17 @@ const App = () => {
           <FormLabel>Model</FormLabel>
           <Select placeholder='' value={selected_model} onChange={(e) => updateSelectedModel(e.target.value)} >
             <option>Protogen_V2.2.ckpt</option>
-            <option>ultimate-country-photo-v3.ckpt</option>
+            <option>ultimate-country-texture-v1.ckpt</option>
             <option>ultimate-country-texture-v2.ckpt</option>
             <option>ultimate-pop-v1.ckpt</option>
             <option>ultimate-pop-v2.ckpt</option>
             <option>ultimate-pop-v3.ckpt</option>
             <option>ultimate-pop-v4.ckpt</option>
+            <option>ultimate-pop-v5.ckpt</option>
+            <option>ultimate-pop-v6.ckpt</option>
+            <option>ultimate-pop-v7.ckpt</option>
+            <option>ultimate-pop-v8.ckpt</option>
+            <option>ultimate-pop-v9.ckpt</option>
             <option>asdpopstyle.safetensors</option>
           </Select>
         </FormControl>
