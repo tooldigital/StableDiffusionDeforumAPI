@@ -145,10 +145,10 @@ const App = () => {
       //http://54.224.132.146
 
       let pr = encodeURIComponent(prompt);
-      const strr = `http://54.224.132.146/generatevideo?prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
+      const strr = `http://127.0.0.1/generatevideo?prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
       //let newstr = decodeURIComponent(strr);
       const result = await axios.get(strr, config);
-      updateVideo('http://54.224.132.146/static/' + result.data);
+      updateVideo('http://127.0.0.1/static/' + result.data);
       let ttimeTaken = Date.now() - start;
       updateTimeTaken(millisToMinutesAndSeconds(ttimeTaken))
       updateLoading(false);
