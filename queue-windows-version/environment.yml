@@ -1,4 +1,4 @@
-name: tool
+name: tool_stable_diffusion_deforum_api
 channels:
   - pytorch
   - nvidia

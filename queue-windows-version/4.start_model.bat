@@ -1,1 +1,1 @@
-cd "model" && conda activate tool && python starter.py
+cd "model" && conda activate tool_stable_diffusion_deforum_api && python starter.py

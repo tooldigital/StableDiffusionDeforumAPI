@@ -1,1 +1,3 @@
-cd "api" && echo %cd% && conda activate tool && uvicorn main:app --reload --port 80
+set /p host=<host.txt
+set /p port=<port.txt
+cd "api" && echo %cd% && conda activate tool_stable_diffusion_deforum_api && uvicorn main:app --host %host% --reload --port %port%
