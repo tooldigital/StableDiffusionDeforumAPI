@@ -10,7 +10,7 @@ from helpers.settings import load_args
 from helpers.render import render_animation, render_input_video, render_image_batch, render_interpolation
 from helpers.model_load import make_linear_decode, load_model, get_model_output_paths
 from helpers.aesthetics import load_aesthetics_model
-import os
+import os,shutil
 import subprocess
 from base64 import b64encode
 from os import startfile
@@ -424,5 +424,15 @@ def render(prompt: str,timings: str,steps: int,seed: str,guidance: float,schedul
     if process.returncode != 0:
         print(stderr)
         raise RuntimeError(stderr)
+    
+    for filename in os.listdir(args.outdir):
+        file_path = os.path.join(args.outdir, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
 
     return f"{args.timestring}.mp4"
