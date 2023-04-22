@@ -31,8 +31,14 @@ def generateSD():
             encoded_body = json.dumps({
                 "videourl": mp4path
             })
-            r = http.request('POST', callbackurl+jsonitem['videoid'],headers={'Content-Type': 'application/json'},body=encoded_body)
-            print(r.read())
+
+            try:
+                r = http.request('POST', callbackurl+jsonitem['videoid'],headers={'Content-Type': 'application/json'},body=encoded_body)
+                print(r.text)
+                r.raise_for_status()
+            except Exception as e:
+                print(e)
+            
         time.sleep(0.1)
         
 
