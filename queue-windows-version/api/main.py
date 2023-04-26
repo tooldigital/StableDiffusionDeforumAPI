@@ -35,7 +35,7 @@ class QueyModel(BaseModel):
 def index():
     return Response("Hello World from Tool Deforum Animation!")
 
-@app.post("/generatevideo")
+@app.get("/generatevideo")
 def generate(videoid: str, prompt: str,timings: str,steps: int,seed: str,guidance: float,scheduler: str,selected_model: str,cadance: int,fps: int,zoom: str, xtrans: str,ytrans: str,useinitimage: bool,initimageurl: str,initimagestrength: float):
     k = str(uuid.uuid4())
     print("started request with id: "+k)
