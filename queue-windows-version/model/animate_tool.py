@@ -284,7 +284,7 @@ elif anim_args.animation_mode == 'Video Input':
 gc.collect()
 torch.cuda.empty_cache()
 
-def render(prompt: str,timings: str,steps: int,seed: str,guidance: float,scheduler: str,selected_model: str,cadance: int,_fps: int, _zoom: str,xtrans: str,ytrans: str,useinitimage: bool,initimageurl: str,initimagestrength: float):
+def render(videoid: str,prompt: str,timings: str,steps: int,seed: str,guidance: float,scheduler: str,selected_model: str,cadance: int,_fps: int, _zoom: str,xtrans: str,ytrans: str,useinitimage: bool,initimageurl: str,initimagestrength: float):
     gc.collect()
     torch.cuda.empty_cache()
     
@@ -377,22 +377,17 @@ def render(prompt: str,timings: str,steps: int,seed: str,guidance: float,schedul
             print("MODEL LOADED")
         except:
             return "error model"
-    '''animation_prompts = {
-        0: "a beautiful, detailed, intricate and engaging painting that tells a story. hd. hq. hyper - detailed. very detailed. vibrant colors. award winning. trending on artstation. ",
-        20: "a painting of a monster with many different colors, a pop art painting by Takashi Murakami, featured on pixiv, pop surrealism, official art, 2d game art, maximalist",
-        60: " fantasy medeival and cyberpunk style white neon statue of a muscular attractive tan male macho dotado android reclining sim roupa con piroca dura, glowing pink face, white baseball cap, green steampunk lasers, emeralds, swirling white silk fabric. futuristic elements. prismatic liquid rainbow light, full-length view. space robots. human skulls. throne made of bones, intricate artwork by caravaggio. Trending on artstation, octane render, cinematic lighting from the right, hyper realism, octane render, 8k, depth of field, 3D"    
-    }'''
+   
+
     try:
        render_animation(args, anim_args, animation_prompts, root)
     except:
         return "error rendering"
    
-
-    
     bitdepth_extension = "exr" if args.bit_depth_output == 32 else "png"
 
     image_path = os.path.join(args.outdir, f"{args.timestring}_%05d.{bitdepth_extension}")
-    mp4_path = os.path.join("../api/static/", f"{args.timestring}.mp4")
+    mp4_path = os.path.join("../api/static/", f"{videoid}.mp4")
     max_frames = str(anim_args.max_frames)
 
     print("IMAGE OUTPUT PATH "+ args.outdir)
@@ -430,4 +425,4 @@ def render(prompt: str,timings: str,steps: int,seed: str,guidance: float,schedul
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
-    return f"{args.timestring}.mp4"
+    return f"{videoid}.mp4"

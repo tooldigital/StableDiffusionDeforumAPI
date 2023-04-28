@@ -25,15 +25,11 @@ def generateSD():
 
             http = urllib3.PoolManager()
             jsonitem = json.loads(item.decode("utf-8"))
-            mp4path = animate_tool.render(jsonitem['prompt'],jsonitem['timings'],jsonitem['steps'],jsonitem['seed'],jsonitem['guidance'],jsonitem['scheduler'],jsonitem['selected_model'],jsonitem['cadance'],jsonitem['fps'],jsonitem['zoom'],jsonitem['xtrans'],jsonitem['ytrans'],jsonitem['useinitimage'],jsonitem['initimageurl'],jsonitem['initimagestrength'])
-
-
+            mp4path = animate_tool.render(jsonitem['videoid'],jsonitem['prompt'],jsonitem['timings'],jsonitem['steps'],jsonitem['seed'],jsonitem['guidance'],jsonitem['scheduler'],jsonitem['selected_model'],jsonitem['cadance'],jsonitem['fps'],jsonitem['zoom'],jsonitem['xtrans'],jsonitem['ytrans'],jsonitem['useinitimage'],jsonitem['initimageurl'],jsonitem['initimagestrength'])
             data = {"videoUrl": localurl+mp4path}
             encoded_data = json.dumps(data).encode('utf-8')
             url = callbackurl+jsonitem['videoid']
-            print(url)
             print(encoded_data)
-
             try:
                 r = http.request('POST',url,body=encoded_data,headers={'Content-Type': 'application/json'})
                 print(r.status)
