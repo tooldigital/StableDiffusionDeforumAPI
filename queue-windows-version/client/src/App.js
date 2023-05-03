@@ -35,13 +35,17 @@ import { Box } from '@chakra-ui/react'
 
 import axios from "axios";
 import { useState } from "react";
+import uuid from 'react-uuid';
 
 const App = () => {
 
+  var videointerval;
+  var videoid;
+
   const [video, updateVideo] = useState('');
   const [timings, updateTimings] = useState('0,60,120,180,240');
-  const [prompt, updatePrompt] = useState('"a man walking on a mountain, trending on artstation.",\n"a cabin on a mountain , trending on artstation.",\n"a man in front of a cabin, trending on artstation.",\n"a man standing in a pool, trending on artstation."');
-  const [selected_model, updateSelectedModel] = useState("Protogen_V2.2.ckpt");
+  const [prompt, updatePrompt] = useState('"ultmcntry, a man walking on a mountain, trending on artstation.",\n"ultmcntry, a cabin on a mountain , trending on artstation.",\n"ultmcntry, a man in front of a cabin, trending on artstation.",\n"ultmcntry, a man standing in a pool, trending on artstation."');
+  const [selected_model, updateSelectedModel] = useState("ultmcntry-v3.ckpt");
   const [selected_scheduler, updateSelectedScheduler] = useState("dpmpp_2s_a");
   const [guidance, updateGuidance] = useState(7.5);
   const [seed, updateSeed] = useState("iter");
@@ -145,14 +149,38 @@ const App = () => {
       //http://54.224.132.146
 
       let pr = encodeURIComponent(prompt);
-      const strr = `http://54.224.132.146/generatevideo?prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
+      var videoserverurl = "http://54.224.132.146"
+      videoid = uuid();
+      const strr = `${videoserverurl}/generatevideo?videoid=${videoid}&prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
+      //const strr = `http://127.0.0.1/generatevideo?prompt=${pr}&timings=${timings}&steps=${steps}&seed=${seed}&guidance=${guidance}&scheduler=${selected_scheduler}&selected_model=${selected_model}&cadance=${cadance}&fps=${fps}&zoom=${zoom}&xtrans=${xtrans}&ytrans=${ytrans}&useinitimage=${useInitImage}&initimageurl=${initimage}&initimagestrength=${initimageStrength}`;
       //let newstr = decodeURIComponent(strr);
+      
       const result = await axios.get(strr, config);
-      updateVideo('http://54.224.132.146/static/' + result.data);
-      let ttimeTaken = Date.now() - start;
-      updateTimeTaken(millisToMinutesAndSeconds(ttimeTaken))
-      updateLoading(false);
+      videointerval = setInterval(checkForVideo, 5000);
+      //updateVideo('http://127.0.0.1/static/' + result.data);
+      //let ttimeTaken = Date.now() - start;
+      //updateTimeTaken(millisToMinutesAndSeconds(ttimeTaken))
+      //updateLoading(false);
     }
+
+    function checkForVideo() {
+    //check for video
+    var http = new XMLHttpRequest();
+    http.open('HEAD', `${videoserverurl}/static/${videoid}.mp4`, false);
+    http.send();
+    if (http.status==200) {
+      clearInterval(videointerval);
+      setTimeout(() => {
+        updateLoading(false);
+        var url = `${videoserverurl}/static/${videoid}.mp4`;
+        console.log(url);
+        updateVideo(url);
+      }, 2000);
+    }
+  }
+
+
+
   };
 
   return (
@@ -163,10 +191,7 @@ const App = () => {
         <Box marginTop={"10px"} marginBottom={"10px"} bg='black' color='white' p={4} borderWidth='1px' borderRadius='lg' >DEFORUM</Box>
 
         <Text marginBottom={"10px"}>When using custom model, include this prefix in the prompt</Text>
-        <UnorderedList marginBottom={"30px"}>
-          <ListItem>ultimate-country: <b>ultmtcntry</b></ListItem>
-          <ListItem>ultimate-pop: <b>ultmtpop</b></ListItem>
-        </UnorderedList>
+       
 
         <Text>Prompts</Text>
         <Textarea height='130' placeholder='' value={prompt} onChange={(e) => updatePrompt(e.target.value)}></Textarea>
@@ -176,19 +201,30 @@ const App = () => {
 
         <FormControl>
           <FormLabel>Model</FormLabel>
+          Protogen_V2.2.ckpt is a large standard model that comes with Deforum<br></br>
+          ultimate-pop-v7.ckpt is an older finetuned model, use the word ultmtpop as prefix in your prompt<br></br>
+          The ultmcntry and ultmhxphxp are newly trained Country and Hip Hop models<br></br>
+          The have all been trained for 2000 epochs on 40 images<br></br>
+          Both Country and Hip Hop had 30 abstract images and 10 images with objects<br></br>
+          v1 is with text encoder trained 0%<br></br>
+          v2 is with text encoder trained 5%<br></br>
+          v3 is with text encoder trained 10%<br></br>
+          v4 is with text encoder trained 15%<br></br>
+          Use the word ultmcntry as prefix for Country models<br></br>
+          Use the word ultmhxphxp as prefix for Hip Hop models<br></br>
+          Guidance is the most important parameter to steer the model in a desired direction.<br></br>
+          For finetuned models higher values could give better results.<br></br>
           <Select placeholder='' value={selected_model} onChange={(e) => updateSelectedModel(e.target.value)} >
             <option>Protogen_V2.2.ckpt</option>
-            <option>ultimate-country-texture-v1.ckpt</option>
-            <option>ultimate-country-texture-v2.ckpt</option>
-            <option>ultimate-pop-v1.ckpt</option>
-            <option>ultimate-pop-v2.ckpt</option>
-            <option>ultimate-pop-v3.ckpt</option>
-            <option>ultimate-pop-v4.ckpt</option>
-            <option>ultimate-pop-v5.ckpt</option>
-            <option>ultimate-pop-v6.ckpt</option>
             <option>ultimate-pop-v7.ckpt</option>
-            <option>ultimate-pop-v8.ckpt</option>
-            <option>ultimate-pop-v9.ckpt</option>
+            <option>ultmcntry-v1.ckpt</option>
+            <option>ultmcntry-v2.ckpt</option>
+            <option>ultmcntry-v3.ckpt</option>
+            <option>ultmcntry-v4.ckpt</option>
+            <option>ultmhxphxp-v1.ckpt</option>
+            <option>ultmhxphxp-v2.ckpt</option>
+            <option>ultmhxphxp-v3.ckpt</option>
+            <option>ultmhxphxp-v4.ckpt</option>
             <option>asdpopstyle.safetensors</option>
           </Select>
         </FormControl>
