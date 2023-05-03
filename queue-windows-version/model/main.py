@@ -12,11 +12,10 @@ import urllib3
 pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
 db = redis.Redis(connection_pool=pool)
 db.ping()
-db.flushall()
 print("MODEL STARTED")
 
-localurl = "http://127.0.0.1:5150/static/"
-callbackurl = "http://localhost:3000/api/sessions/video/"
+localurl = " http://192.168.68.13:5150/static/"
+callbackurl = "http://192.168.68.201:3000/api/sessions/video/"
 
 def generateSD():
     while True:

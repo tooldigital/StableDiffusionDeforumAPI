@@ -15,7 +15,6 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
 db = redis.Redis(connection_pool=pool)
-db.flushall()
 db.ping() 
 
 app.add_middleware(
