@@ -203,15 +203,17 @@ const App = () => {
           <FormLabel>Model</FormLabel>
           Protogen_V2.2.ckpt is a large standard model that comes with Deforum<br></br>
           ultimate-pop-v7.ckpt is an older finetuned model, use the word ultmtpop as prefix in your prompt<br></br>
-          The ultmcntry and ultmhxphxp are newly trained Country and Hip Hop models<br></br>
+          The ultmcntry and ultmhxphxp are newly trained Country, Hip Hop, EDM and Rock models<br></br>
           The have all been trained for 2000 epochs on 40 images<br></br>
-          Both Country and Hip Hop had 30 abstract images and 10 images with objects<br></br>
-          v1 is with text encoder trained 0%<br></br>
-          v2 is with text encoder trained 5%<br></br>
-          v3 is with text encoder trained 10%<br></br>
-          v4 is with text encoder trained 15%<br></br>
-          Use the word ultmcntry as prefix for Country models<br></br>
-          Use the word ultmhxphxp as prefix for Hip Hop models<br></br>
+          With 30 abstract images and 10 images with objects<br></br>
+          v1 is text encoder trained 0%<br></br>
+          v2 is text encoder trained 5%<br></br>
+          v3 is text encoder trained 10%<br></br>
+          v4 is text encoder trained 15%<br></br>
+          Use the word <b>ultmcntry</b> as prefix for Country models<br></br>
+          Use the word <b>ultmhxphxp</b> as prefix for Hip Hop models<br></br>
+          Use the word <b>ultmedm</b> as prefix for Hip Hop models<br></br>
+          Use the word <b>ultmrck</b> as prefix for Hip Hop models<br></br>
           Guidance is the most important parameter to steer the model in a desired direction.<br></br>
           For finetuned models higher values could give better results.<br></br>
           <Select placeholder='' value={selected_model} onChange={(e) => updateSelectedModel(e.target.value)} >
@@ -225,6 +227,14 @@ const App = () => {
             <option>ultmhxphxp-v2.ckpt</option>
             <option>ultmhxphxp-v3.ckpt</option>
             <option>ultmhxphxp-v4.ckpt</option>
+            <option>ultmedm-v1.ckpt</option>
+            <option>ultmedm-v2.ckpt</option>
+            <option>ultmedm-v3.ckpt</option>
+            <option>ultmedm-v4.ckpt</option>
+            <option>ultmrck-v1.ckpt</option>
+            <option>ultmrck-v2.ckpt</option>
+            <option>ultmrck-v3.ckpt</option>
+            <option>ultmrck-v4.ckpt</option>
             <option>asdpopstyle.safetensors</option>
           </Select>
         </FormControl>
