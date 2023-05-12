@@ -326,8 +326,9 @@ def render(videoid: str,prompt: str,timings: str,steps: int,seed: str,guidance: 
     #SET NEW ARGS
     #**************************************
 
+    newprompt = prompt.replace('“','"')
     prompts = []
-    res = re.findall(r'"(.*?)"', prompt)
+    res = re.findall(r'"(.*?)"', newprompt)
     for _prompt in res:
         prompts.append(_prompt)
 
@@ -336,8 +337,8 @@ def render(videoid: str,prompt: str,timings: str,steps: int,seed: str,guidance: 
     times = [ int(x) for x in times ]
 
     animation_prompts ={}
-    for idx, prompt in enumerate(prompts):
-        animation_prompts[times[idx]] = prompt
+    for idx, __prompt in enumerate(prompts):
+        animation_prompts[times[idx]] = __prompt
     
     args.timestring = time.strftime('%Y%m%d%H%M%S')
     args.strength = max(0.0, min(1.0, args.strength))
