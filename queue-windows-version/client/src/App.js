@@ -45,7 +45,7 @@ const App = () => {
   const [video, updateVideo] = useState('');
   const [timings, updateTimings] = useState('0,60,120,180,240');
   const [prompt, updatePrompt] = useState('"ultmcntry, a man walking on a mountain, trending on artstation.",\n"ultmcntry, a cabin on a mountain , trending on artstation.",\n"ultmcntry, a man in front of a cabin, trending on artstation.",\n"ultmcntry, a man standing in a pool, trending on artstation."');
-  const [selected_model, updateSelectedModel] = useState("ultmcntry-v3.ckpt");
+  const [selected_model, updateSelectedModel] = useState("ultmcntry-v4.ckpt");
   const [selected_scheduler, updateSelectedScheduler] = useState("dpmpp_2s_a");
   const [guidance, updateGuidance] = useState(7.5);
   const [seed, updateSeed] = useState("iter");
@@ -218,24 +218,10 @@ const App = () => {
           For finetuned models higher values could give better results.<br></br>
           <Select placeholder='' value={selected_model} onChange={(e) => updateSelectedModel(e.target.value)} >
             <option>Protogen_V2.2.ckpt</option>
-            <option>ultimate-pop-v7.ckpt</option>
-            <option>ultmcntry-v1.ckpt</option>
-            <option>ultmcntry-v2.ckpt</option>
-            <option>ultmcntry-v3.ckpt</option>
             <option>ultmcntry-v4.ckpt</option>
-            <option>ultmhxphxp-v1.ckpt</option>
-            <option>ultmhxphxp-v2.ckpt</option>
-            <option>ultmhxphxp-v3.ckpt</option>
             <option>ultmhxphxp-v4.ckpt</option>
-            <option>ultmedm-v1.ckpt</option>
-            <option>ultmedm-v2.ckpt</option>
-            <option>ultmedm-v3.ckpt</option>
             <option>ultmedm-v4.ckpt</option>
-            <option>ultmrck-v1.ckpt</option>
-            <option>ultmrck-v2.ckpt</option>
-            <option>ultmrck-v3.ckpt</option>
             <option>ultmrck-v4.ckpt</option>
-            <option>asdpopstyle.safetensors</option>
           </Select>
         </FormControl>
 
